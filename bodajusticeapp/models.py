@@ -30,3 +30,15 @@ class Offence(models.Model):
     offense_type = models.CharField(max_length=50)
     creation_date = models.DateTimeField(auto_now_add=True)
     fine = models.IntegerField()
+
+
+class Complaint(models.Model):
+    description = models.CharField(max_length=150)
+    complainant = models.ForeignKey(Complainants, related_name='complainant', on_delete=models.CASCADE)
+    location = models.CharField(max_length=40)
+
+class Case(models.Model):
+    lawyer = models.ForeignKey(User, related_name='case', on_delete=models.CASCADE)
+    offence = models.CharField(max_length=50),
+    status = models.BooleanField(default=False)
+    # complaint = models.ForeignKey()

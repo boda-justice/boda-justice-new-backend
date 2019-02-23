@@ -37,11 +37,6 @@ class LawyersListCreate(generics.CreateAPIView):
     permission_classes = (IsAdminUser,)
 
 
-class LawyersListCreate(generics.ListAPIView):
-    queryset = models.Lawyer.objects.all()
-    serializer_class = serializers.LawyerSerializer
-
-
 class LawyersDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Lawyer.objects.all()
     serializer_class = serializers.LawyerSerializer
@@ -49,11 +44,30 @@ class LawyersDetails(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ComplainantListCreate(generics.CreateAPIView):
-    queryset = models.Lawyer.objects.all()
+    queryset = models.Complainants.objects.all()
     serializer_class = serializers.ComplainantSerializer
-    permission_classes = (IsAdminUser,)
 
 
 class OffenceList(generics.ListCreateAPIView):
     queryset = models.Offence.objects.all()
     serializer_class = serializers.OffenseSerializer
+
+class CaseCreate(generics.ListCreateAPIView):
+    queryset = models.Case.objects.all()
+    serializer_class = serializers.CaseSerializer
+    permission_classes = (IsAdminUser,)
+
+
+class CloseCase(generics.UpdateAPIView):
+    queryset = models.Case.objects.all()
+    serializer_class = serializers.CaseSerializer
+    permission_classes = (IsAdminUser,)
+
+
+class ComplaintListCreate(generics.ListCreateAPIView):
+    queryset = models.Complaint.objects.all()
+    serializer_class = serializers.ComplaintSerializer
+
+    def perform_create(self, serializer):
+        user = models.Complainants.objects.filter(user = self.request.user).first()
+        serializer.save(complainant=user)

@@ -23,4 +23,12 @@ urlpatterns = [
 
     #Offences
     path('list-offences/', views.OffenceList.as_view(), name='offences_list'),
+
+    #cases
+    path('accept-complaint/<str:complaint_id>/', views.CaseCreate.as_view(), name="create_case"),
+    path('view-all-cases/', views.CaseCreate.as_view(), name="list_all_cases"),
+    path('close-case/<str:pk>/', views.CloseCase.as_view(), name='close_Case'),
+
+    #complaints
+    path('create-complaint/', views.ComplaintListCreate.as_view(), name='list_create_complaint'),
     ]

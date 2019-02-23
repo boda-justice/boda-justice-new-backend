@@ -26,7 +26,7 @@ class LawyerSerializer(serializers.ModelSerializer):
 
 class ComplainantSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Lawyer
+        model = models.Complainants
         fields = ['user', 'occupation']
 
 
@@ -34,3 +34,15 @@ class OffenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Offence
         fields = ['description', 'offense_type', 'fine']
+
+
+class CaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Case
+        fields = ['lawyer', 'offence', 'status', 'complaint']
+
+class ComplaintSerializer(serializers.ModelSerializer):
+    complainant = serializers.ReadOnlyField(source='complainant.username')
+    class Meta:
+        model = models.Complaint
+        fields = ['description', 'location', 'complainant']
