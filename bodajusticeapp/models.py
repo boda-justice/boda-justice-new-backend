@@ -21,7 +21,7 @@ class Complainants(models.Model):
     occupation = models.CharField(
         max_length=20,
         choices=OCCUPATION_CHOICES,
-        default='Uber Motorist',
+        # default='Uber Motorist',
     )
 
 
