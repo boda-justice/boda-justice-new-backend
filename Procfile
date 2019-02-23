@@ -1,0 +1,1 @@
+web: gunicorn BodaJustice.wsgi
