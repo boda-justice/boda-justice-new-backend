@@ -1,0 +1,52 @@
+[   
+    {
+        "model": "bodajusticeapp.offence",
+        "pk": 1,
+        "fields": {
+            "description": "sample description",
+            "offense_type": "Test",
+            "fine": 12000,
+            "creation_date": "2019-02-23 14:50:05"
+        }
+    },
+    {
+        "model": "bodajusticeapp.offence",
+        "pk": 2,
+        "fields": {
+            "description": "sample description",
+            "offense_type": "Test",
+            "fine": 12000,
+            "creation_date": "2019-02-23 14:50:05"
+        }
+    },
+    {
+        "model": "bodajusticeapp.offence",
+        "pk": 3,
+        "fields": {
+            "description": "sample description",
+            "offense_type": "Test",
+            "fine": 12000,
+            "creation_date": "2019-02-23 14:50:05"
+        }
+    },
+    {
+        "model": "bodajusticeapp.offence",
+        "pk": 4,
+        "fields": {
+            "description": "sample description",
+            "offense_type": "Test",
+            "fine": 12000,
+            "creation_date": "2019-02-23 14:50:05"
+        }
+    },
+    {
+        "model": "bodajusticeapp.offence",
+        "pk": 5,
+        "fields": {
+            "description": "sample description",
+            "offense_type": "Test",
+            "fine": 12000,
+            "creation_date": "2019-02-23 14:50:05"
+        }
+    }
+]
