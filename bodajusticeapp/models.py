@@ -17,11 +17,11 @@ class Complainants(models.Model):
         ('Uber Motorist', 'Uber Motorist'),
         ('Motor Cyclist', 'Motor Cyclist'),
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     occupation = models.CharField(
-        max_length=20,
+        max_length=120,
         choices=OCCUPATION_CHOICES,
-        # default='Uber Motorist',
+        default='Uber Motorist',
     )
 
 
