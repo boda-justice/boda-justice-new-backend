@@ -2,6 +2,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.conf.urls import url, include
+from rest_framework.authtoken import views as authviews
 
 from . import views
 
@@ -10,6 +11,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('login/', views.LoginUser.as_view(), name='login'),
     path('register/', views.UserCreate.as_view(), name='register'),
+    path('api-token-auth/', authviews.obtain_auth_token),
 
     #lawyers urls
     path('add-lawyer/', views.LawyersListCreate.as_view(), name='add_lawyer'),
