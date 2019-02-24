@@ -54,9 +54,9 @@ class OffenceList(generics.ListCreateAPIView):
     serializer_class = serializers.OffenseSerializer
 
 class CaseCreate(generics.ListCreateAPIView):
-    queryset = models.Case.objects.all()
     serializer_class = serializers.CaseSerializer
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAuthenticated,)
+    queryset = models.Case.objects.all()
 
 
 class CloseCase(generics.UpdateAPIView):
@@ -97,3 +97,42 @@ class ComplaintRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
             raise PermissionDenied("You are not allowed to view, edit, delete this complaint")           
         return complaint
 
+
+class ComplaintList(generics.ListAPIView):
+    serializer_class = serializers.ComplaintListSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        try:
+            complainant_user = user.lawyer_user
+        except:
+            raise PermissionDenied("The user trying to access this view is not a lawyer")
+        complaints = models.Complaint.objects.filter(status=False)         
+        return complaints
+
+class ComplaintRetrieve(generics.RetrieveAPIView):
+    serializer_class = serializers.ComplaintRetrieveSerializer
+
+
+    def get_queryset(self):
+        user = self.request.user
+        try:
+            complainant_user = user.lawyer_user
+        except:
+            raise PermissionDenied("The user trying to access this view is not a lawyer")
+        complaints = models.Complaint.objects.filter(status=False)         
+        return complaints
+
+
+class CaseView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.CaseSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        try:
+            lawyer = user.lawyer_user
+        except:
+            raise PermissionDenied("The user trying to access this view is not a lawyer")
+        cases = models.Case.objects.filter(lawyer=lawyer)        
+        return cases

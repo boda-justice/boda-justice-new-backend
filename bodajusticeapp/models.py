@@ -6,7 +6,7 @@ from django.utils import timezone
 User = get_user_model()
 
 class Lawyer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name="lawyer_user", on_delete=models.CASCADE)
     # The practise_number has letters and forward slashes e.g P.123/3456/89
     practise_number = models.CharField(max_length=15, primary_key=True)
     building_address = models.CharField(max_length=15)
@@ -56,7 +56,7 @@ class Complaint(models.Model):
                                              blank=True, null=True)
 
 class Case(models.Model):
-    lawyer = models.ForeignKey(User, related_name='case', on_delete=models.CASCADE)
-    offence = models.CharField(max_length=50),
-    status = models.BooleanField(default=False)
-    # complaint = models.ForeignKey()
+    lawyer = models.ForeignKey(Lawyer, related_name='case', on_delete=models.CASCADE)
+    offence = models.ForeignKey(Offence, on_delete=models.SET_NULL, null=True, blank=True)
+    status =  models.BooleanField(default=False)
+    complaint = models.ForeignKey(Complaint, on_delete=models.SET_NULL, null=True, blank=True)

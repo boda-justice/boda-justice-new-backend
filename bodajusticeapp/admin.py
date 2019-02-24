@@ -5,3 +5,5 @@ from . import models
 admin.site.register(models.Offence)
 admin.site.register(models.Lawyer)
 admin.site.register(models.Complainants)
+admin.site.register(models.Case)
+admin.site.register(models.Complaint)
