@@ -17,6 +17,9 @@ class Lawyer(models.Model):
     id_number = models.CharField(_('id_number'), max_length=15)
     phone_number = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return str(self.user.username)
+
 
 class Complainants(models.Model):
     OCCUPATION_CHOICES = (
@@ -32,6 +35,9 @@ class Complainants(models.Model):
     id_number = models.CharField(_('id_number'), max_length=15,)
     phone_number = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return str(self.user.username)
+    
 
 class Offence(models.Model):
     fine = models.DecimalField(max_digits=6, decimal_places=0)
@@ -41,6 +47,17 @@ class Offence(models.Model):
                                              auto_now_add=True,
                                              blank=True, null=True)
     description = models.TextField(_('offence_description'))
+
+    def __str__(self):
+        return str(self.description)
+
+class PoliceStation(models.Model):
+    name = models.CharField(_('police_station'), max_length=15)
+    street_road = models.CharField(_('street_or_road'), max_length=15)
+
+    def __str__(self):
+        return str(self.name)
+
 
 
 class Complaint(models.Model):
@@ -54,9 +71,18 @@ class Complaint(models.Model):
     modification_date = models.DateTimeField(_('date_modified'),
                                              auto_now_add=True,
                                              blank=True, null=True)
+    police_station = models.ForeignKey(
+        PoliceStation, on_delete=models.SET_NULL, null=True, blank=True)
+
+
+    def __str__(self):
+        return str(self.description)
 
 class Case(models.Model):
     lawyer = models.ForeignKey(Lawyer, related_name='case', on_delete=models.CASCADE)
     offence = models.ForeignKey(Offence, on_delete=models.SET_NULL, null=True, blank=True)
     status =  models.BooleanField(default=False)
     complaint = models.ForeignKey(Complaint, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.offence) + str(self.complaint)
