@@ -50,4 +50,4 @@ class ComplaintSerializer(serializers.ModelSerializer):
 class ComplaintDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Complaint
-        fields = ['description', 'location']
+        fields = ['description', 'location', 'status']
