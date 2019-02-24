@@ -23,7 +23,7 @@ class Complainants(models.Model):
         ('Uber Motorist', 'Uber Motorist'),
         ('Motor Cyclist', 'Motor Cyclist'),
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name="complainant_user", on_delete=models.CASCADE)
     occupation = models.CharField(
         max_length=20,
         choices=OCCUPATION_CHOICES,
@@ -47,6 +47,13 @@ class Complaint(models.Model):
     description = models.CharField(max_length=150)
     complainant = models.ForeignKey(Complainants, related_name='complainant', on_delete=models.CASCADE)
     location = models.CharField(max_length=40)
+    status = models.BooleanField(default=False, help_text=(
+            'Designates whether the complaint has been taken.'),)
+    creation_date = models.DateTimeField(_('date_created'),
+                                         default=timezone.now)
+    modification_date = models.DateTimeField(_('date_modified'),
+                                             auto_now_add=True,
+                                             blank=True, null=True)
 
 class Case(models.Model):
     lawyer = models.ForeignKey(User, related_name='case', on_delete=models.CASCADE)

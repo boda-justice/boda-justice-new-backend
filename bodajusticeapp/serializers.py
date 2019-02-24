@@ -46,3 +46,8 @@ class ComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Complaint
         fields = ['description', 'location', 'complainant']
+
+class ComplaintDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Complaint
+        fields = ['description', 'location']

@@ -1,8 +1,10 @@
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import status, response, permissions, generics, views, authtoken
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from . import serializers, models
+from rest_framework.exceptions import PermissionDenied
+
 
 
 User = get_user_model()
@@ -64,9 +66,34 @@ class CloseCase(generics.UpdateAPIView):
 
 
 class ComplaintListCreate(generics.ListCreateAPIView):
-    queryset = models.Complaint.objects.all()
+    permission_classes = (IsAuthenticated,)
     serializer_class = serializers.ComplaintSerializer
 
     def perform_create(self, serializer):
-        user = models.Complainants.objects.filter(user = self.request.user).first()
-        serializer.save(complainant=user)
+        user = self.request.user
+        serializer.save(complainant=user.complainant_user)
+
+    def get_queryset(self):
+        user = self.request.user
+        try:
+            complainant_user = user.complainant_user
+        except:
+            raise PermissionDenied()            
+        return models.Complaint.objects.filter(complainant=complainant_user)
+
+
+class ComplainantRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.ComplaintDetailsSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        try:
+            complainant_user = user.complainant_user
+        except:
+            raise PermissionDenied()
+        complaint = models.Complaint.objects.filter(complainant=complainant_user, id=self.kwargs["pk"])
+        if not complaint:
+            raise PermissionDenied("You are not allowed to view, edit, delete this complaint")           
+        return complaint
+
