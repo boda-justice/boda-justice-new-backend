@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/', views.LoginUser.as_view(), name='login'),
     path('register/', views.UserCreate.as_view(), name='register'),
     path('api-token-auth/', authviews.obtain_auth_token),
+    path('user/', views.GetUser.as_view(), name='user'),
 
     #lawyers urls
     path('add-lawyer/', views.LawyersListCreate.as_view(), name='add_lawyer'),

@@ -33,6 +33,27 @@ class LoginUser(views.APIView):
                     status=status.HTTP_200_OK)
 
 
+class GetUser(views.APIView):
+    def get(self, request):
+        user = self.request.user
+        user_occupation = "Unassigned"
+        try:
+            user.lawyer_user
+            user_occupation = "Lawyer"
+        except:
+            pass
+        try:
+            
+            user.complainant_user
+            user_occupation = "Complainant"
+        except:
+            pass
+
+        return response.Response({'username': user.username,
+        'occupation': user_occupation
+        },
+                status=status.HTTP_200_OK)
+        
 class LawyersListCreate(generics.CreateAPIView):
     queryset = models.Lawyer.objects.all()
     serializer_class = serializers.LawyerSerializer
