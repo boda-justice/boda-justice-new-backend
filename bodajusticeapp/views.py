@@ -36,8 +36,8 @@ class LoginUser(views.APIView):
 
 class GetUser(views.APIView):
     def get(self, request, format=None):
-        token = self.request.META.get('HTTP_AUTHORIZATION')
-        user_token = token.split(' ')[2]
+        token = request.META.get('HTTP_AUTHORIZATION')
+        user_token = token.split()[1]
         user = Token.objects.filter(key=user_token).first().user
         user_occupation = "Unassigned"
         try:
@@ -46,7 +46,6 @@ class GetUser(views.APIView):
         except:
             pass
         try:
-            
             user.complainant_user
             user_occupation = "Complainant"
         except:
