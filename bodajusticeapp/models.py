@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
@@ -12,6 +13,8 @@ class Lawyer(models.Model):
     building_floor = models.CharField(max_length=15)
     status = models.BooleanField(default=False, help_text=(
             'Designates whether the user is available or not.'),)
+    id_number = models.CharField(_('id_number'), max_length=15)
+    phone_number = models.IntegerField(blank=True, null=True)
 
 
 class Complainants(models.Model):
@@ -25,6 +28,8 @@ class Complainants(models.Model):
         choices=OCCUPATION_CHOICES,
         default='Uber Motorist',
     )
+    id_number = models.CharField(_('id_number'), max_length=15,)
+    phone_number = models.IntegerField(blank=True, null=True)
 
 
 class Offence(models.Model):

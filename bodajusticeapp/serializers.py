@@ -21,13 +21,13 @@ class UserSerializer(serializers.ModelSerializer):
 class LawyerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Lawyer
-        fields = ['user', 'practise_number', 'building_address', 'street_road', 'building_floor']
+        fields = ['user', 'practise_number', 'building_address', 'street_road', 'building_floor', 'id_number', 'phone_number']
 
 
 class ComplainantSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Complainants
-        fields = ['user', 'occupation']
+        fields = ['user', 'occupation', 'id_number', 'phone_number']
 
 
 class OffenseSerializer(serializers.ModelSerializer):
