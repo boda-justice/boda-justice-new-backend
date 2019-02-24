@@ -10,6 +10,8 @@ class Lawyer(models.Model):
     building_address = models.CharField(max_length=15)
     street_road = models.CharField(max_length=15)
     building_floor = models.CharField(max_length=15)
+    status = models.BooleanField(default=False, help_text=(
+            'Designates whether the user is available or not.'),)
 
 
 class Complainants(models.Model):
