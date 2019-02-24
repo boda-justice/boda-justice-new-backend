@@ -33,7 +33,7 @@ class ComplainantSerializer(serializers.ModelSerializer):
 class OffenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Offence
-        fields = ['description', 'offense_type', 'fine']
+        fields = ['description', 'fine']
 
 
 class CaseSerializer(serializers.ModelSerializer):

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -33,10 +34,13 @@ class Complainants(models.Model):
 
 
 class Offence(models.Model):
-    description = models.CharField(max_length=200)
-    offense_type = models.CharField(max_length=50)
-    creation_date = models.DateTimeField(auto_now_add=True)
-    fine = models.IntegerField()
+    fine = models.DecimalField(max_digits=6, decimal_places=0)
+    creation_date = models.DateTimeField(_('date_created'),
+                                         default=timezone.now)
+    modification_date = models.DateTimeField(_('date_modified'),
+                                             auto_now_add=True,
+                                             blank=True, null=True)
+    description = models.TextField(_('offence_description'))
 
 
 class Complaint(models.Model):
