@@ -33,5 +33,5 @@ urlpatterns = [
 
     #complaints
     path('create-complaint/', views.ComplaintListCreate.as_view(), name='list_create_complaint'),
-    path('complaint/<str:pk>/', views.ComplainantRetrieveUpdateDelete.as_view(), name='complaint-details'),
+    path('complaint/<str:pk>/', views.ComplaintRetrieveUpdateDelete.as_view(), name='complaint-details'),
     ]

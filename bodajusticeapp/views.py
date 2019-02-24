@@ -82,7 +82,7 @@ class ComplaintListCreate(generics.ListCreateAPIView):
         return models.Complaint.objects.filter(complainant=complainant_user)
 
 
-class ComplainantRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
+class ComplaintRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.ComplaintDetailsSerializer
 
@@ -91,7 +91,7 @@ class ComplainantRetrieveUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
         try:
             complainant_user = user.complainant_user
         except:
-            raise PermissionDenied()
+            raise PermissionDenied("The user trying to access this view is not a complainant")
         complaint = models.Complaint.objects.filter(complainant=complainant_user, id=self.kwargs["pk"])
         if not complaint:
             raise PermissionDenied("You are not allowed to view, edit, delete this complaint")           
