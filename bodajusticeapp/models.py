@@ -52,8 +52,8 @@ class Offence(models.Model):
         return str(self.description)
 
 class PoliceStation(models.Model):
-    name = models.CharField(_('police_station'), max_length=15)
-    street_road = models.CharField(_('street_or_road'), max_length=15)
+    name = models.CharField(_('police_station'), max_length=50)
+    street_road = models.CharField(_('street_or_road'), max_length=50)
 
     def __str__(self):
         return str(self.name)
@@ -86,3 +86,11 @@ class Case(models.Model):
 
     def __str__(self):
         return str(self.offence) + str(self.complaint)
+
+
+class Reviews(models.Model):
+    comments = models.TextField()
+    rating = models.DecimalField(max_digits=2, decimal_places=1, default=5.0)
+    # A case ensures only people who were served to comment on it
+    case = models.ForeignKey(
+        Lawyer, on_delete=models.SET_NULL, null=True, blank=True)
