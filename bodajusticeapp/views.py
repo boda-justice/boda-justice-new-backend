@@ -34,7 +34,6 @@ class LoginUser(views.APIView):
 class LawyersListCreate(generics.CreateAPIView):
     queryset = models.Lawyer.objects.all()
     serializer_class = serializers.LawyerSerializer
-    permission_classes = (IsAdminUser,)
 
 
 class LawyersDetails(generics.RetrieveUpdateDestroyAPIView):
