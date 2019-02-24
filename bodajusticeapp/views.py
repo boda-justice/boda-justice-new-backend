@@ -59,10 +59,10 @@ class CaseCreate(generics.ListCreateAPIView):
     queryset = models.Case.objects.all()
 
 
-class CloseCase(generics.UpdateAPIView):
+class CloseCase(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Case.objects.all()
     serializer_class = serializers.CaseSerializer
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAuthenticated,)
 
 
 class ComplaintListCreate(generics.ListCreateAPIView):
