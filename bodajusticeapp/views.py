@@ -4,6 +4,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from . import serializers, models
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.authtoken.models import Token
 
 
 
@@ -34,8 +35,10 @@ class LoginUser(views.APIView):
 
 
 class GetUser(views.APIView):
-    def get(self, request):
-        user = self.request.user
+    def get(self, request, format=None):
+        token = self.request.META.get('HTTP_AUTHORIZATION')
+        user_token = token.split(' ')[2]
+        user = Token.objects.filter(key=user_token).first().user
         user_occupation = "Unassigned"
         try:
             user.lawyer_user
