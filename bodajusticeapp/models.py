@@ -92,5 +92,5 @@ class Reviews(models.Model):
     comments = models.TextField()
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=5.0)
     # A case ensures only people who were served to comment on it
-    case = models.ForeignKey(
+    lawyer = models.ForeignKey(
         Lawyer, on_delete=models.SET_NULL, null=True, blank=True)

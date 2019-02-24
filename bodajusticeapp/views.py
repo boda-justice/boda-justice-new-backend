@@ -136,3 +136,12 @@ class CaseView(generics.ListAPIView):
             raise PermissionDenied("The user trying to access this view is not a lawyer")
         cases = models.Case.objects.filter(lawyer=lawyer)        
         return cases
+
+
+class ReviewView(generics.ListCreateAPIView):
+    serializer_class = serializers.ReviewsSerializers
+    queryset = models.Reviews.objects.all()
+
+class ReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.ReviewsSerializers
+    queryset = models.Reviews.objects.all()

@@ -67,3 +67,8 @@ class CaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Case
         fields = ['lawyer', 'offence', 'complaint', 'status']
+
+class ReviewsSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Reviews
+        fields = ['rating', 'comments', 'lawyer']

@@ -37,4 +37,8 @@ urlpatterns = [
     path('complaint/<str:pk>/', views.ComplaintRetrieveUpdateDelete.as_view(), name='complaint-details'),
     path('complaints/', views.ComplaintList.as_view(), name='list_all_complaints'),
     path('complaints/<str:pk>/', views.ComplaintRetrieve.as_view(), name='retrieve_a_complaint'),
+
+    #review
+    path('review/', views.ReviewView.as_view(), name='review'),
+    path('review-detail/<str:pk>/', views.ReviewDetailView.as_view(), name='review-detail'),
     ]
